@@ -1,0 +1,12 @@
+# Clear any old environment that may conflict.
+for key in $( set | awk '{FS="="}  /^OS_/ {print $1}' ); do unset $key ; done
+export OS_NO_CACHE=True
+export OS_CLOUDNAME=overcloud
+export OS_AUTH_URL=http://10.207.111.20:5000/v2.0
+export NOVA_VERSION=1.1
+export COMPUTE_API_VERSION=1.1
+export OS_USERNAME=admin
+export OS_PASSWORD=wNR696Bx7FFqQuXnudTKCPqzf
+export no_proxy=,10.207.111.20,10.207.110.12,10.207.111.20,10.207.110.10,10.207.111.20,10.207.110.11,10.207.111.20,10.207.110.15
+export OS_PROJECT_NAME=admin
+export PYTHONWARNINGS="ignore:Certificate has no, ignore:A true SSLContext object is not available"

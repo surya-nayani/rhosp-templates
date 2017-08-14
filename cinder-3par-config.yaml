@@ -1,0 +1,22 @@
+# A Heat environment file which can be used to enable a
+# a Cinder  HPE3par backend, configured via puppet
+resource_registry:
+  OS::TripleO::ControllerExtraConfigPre: /usr/share/openstack-tripleo-heat-templates/puppet/extraconfig/pre_deploy/controller/cinder-hpe3par-iscsi.yaml
+
+parameter_defaults:
+  CinderEnableHPE3parBackend: true
+  CinderHPE3parApiUrl: 'https://10.42.6.17:8080/api/v1'
+  CinderHPE3parUserName: 'nfvadmin'
+  CinderHPE3parPassword: 'HP1nvent'
+  CinderHPE3parBackendName: 'tripleo_hpe3par'
+  CinderHPE3parDriver: 'cinder.volume.drivers.hpe.hpe_3par_iscsi.HPE3PARISCSIDriver'
+  CinderHPE3parChapEnabled: false
+  CinderHPE3parSanIP: '10.42.6.17'
+  CinderHPE3parSanLogin: 'nfvadmin'
+  CinderHPE3parSanPassword: 'HP1nvent'
+  CinderHPE3parCPG: 'SSD_r5'
+  CinderHPE3parCPGSnap: 'SSD_r5'
+  CinderHPE3parSnapRetention: 48
+  CinderHPE3parSnapExpiration: 72
+  CinderHPE3parISCSIIPS: "10.42.18.151,10.42.18.152,10.42.18.153,10.42.18.154,10.42.18.155,10.42.18.156,10.42.18.157,10.42.18.158"
+

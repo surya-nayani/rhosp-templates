@@ -1,0 +1,86 @@
+resource_registry:
+ OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller.yaml
+ OS::TripleO::CephStorage::Net::SoftwareConfig: /home/stack/templates/nic-configs/ceph-storage.yaml
+ 
+ # TripleO overcloud networks
+ OS::TripleO::Network::External: /usr/share/openstack-tripleo-heat-templates/network/external.yaml
+ OS::TripleO::Network::InternalApi: /usr/share/openstack-tripleo-heat-templates/network/internal_api.yaml
+ OS::TripleO::Network::Storage: /usr/share/openstack-tripleo-heat-templates/network/storage.yaml
+ OS::TripleO::Network::Management: OS::Heat::None
+ OS::TripleO::Network::StorageMgmt: OS::Heat::None
+ OS::TripleO::Network::Tenant: OS::Heat::None
+ 
+ 
+ # Port assignments for the VIPs
+ OS::TripleO::Network::Ports::ExternalVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+ OS::TripleO::Network::Ports::InternalApiVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+ OS::TripleO::Network::Ports::StorageVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+ OS::TripleO::Network::Ports::StorageMgmtVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+ OS::TripleO::Network::Ports::TenantVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+ OS::TripleO::Network::Ports::RedisVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/vip.yaml
+
+ # Port assignments for the controller role
+ OS::TripleO::Controller::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+ OS::TripleO::Controller::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+ OS::TripleO::Controller::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+ OS::TripleO::Controller::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+ OS::TripleO::Controller::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+ 
+ 
+ # Port assignments for the ceph storage role
+ OS::TripleO::CephStorage::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+ OS::TripleO::CephStorage::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+
+ # Port assignments for the swift storage role
+ OS::TripleO::SwiftStorage::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+ OS::TripleO::SwiftStorage::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+ OS::TripleO::SwiftStorage::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+
+ # Port assignments for the block storage role
+ OS::TripleO::BlockStorage::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+ OS::TripleO::BlockStorage::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+ OS::TripleO::BlockStorage::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+
+ # Update password for heat-admin user for overcloud nodes
+ OS::TripleO::NodeUserData: /home/stack/templates/first-boot.yaml
+ OS::TripleO::NodeExtraConfigPost: /home/stack/templates/post-install.yaml
+
+parameter_defaults:
+ NovaComputeLibvirtType: kvm
+ NeutronMechanismDrivers: "openvswitch,sriovnicswitch"
+ NovaSchedulerAvailableFilters: ["nova.scheduler.filters.all_filters","nova.scheduler.filters.pci_passthrough_filter.PciPassthroughFilter"]
+ NovaSchedulerDefaultFilters: ['AvailabilityZoneFilter','RamFilter','ComputeFilter','ComputeCapabilitiesFilter','ImagePropertiesFilter','ServerGroupAntiAffinityFilter','ServerGroupAffinityFilter','PciPassthroughFilter','NUMATopologyFilter']
+ NeutronTunnelTypes: ''
+ NeutronNetworkType: 'vlan'
+ NeutronBridgeMappings: 'datacentre:br-data'
+ BondInterfaceOvsOptions: "mode=4"
+ Computedatabondoptions: "mode=1"
+ ServiceNetMap:
+   CeilometerApiNetwork: internal_api
+   MongoDbNetwork: internal_api
+   CinderApiNetwork: internal_api
+   CinderIscsiNetwork: storage
+   GlanceApiNetwork: storage
+   GlanceRegistryNetwork: storage # changed from internal_api
+   KeystoneAdminApiNetwork: ctlplane # Admin connection for Undercloud
+   #KeystoneAdminApiNetwork: internal_api # Admin connection for Undercloud
+   KeystonePublicApiNetwork: internal_api
+   NeutronApiNetwork: internal_api
+   HeatApiNetwork: internal_api
+   NovaApiNetwork: internal_api
+   NovaMetadataNetwork: internal_api
+   NovaVncProxyNetwork: internal_api
+   SwiftMgmtNetwork: storage # Changed from storage_mgmt
+   SwiftProxyNetwork: storage
+   HorizonNetwork: internal_api
+   MemcachedNetwork: internal_api
+   RabbitMqNetwork: internal_api
+   RedisNetwork: internal_api
+   MysqlNetwork: internal_api
+   CephClusterNetwork: storage # Changed from storage_mgmt
+   CephPublicNetwork: storage
+   ControllerHostnameResolveNetwork: internal_api
+   ComputeHostnameResolveNetwork: internal_api
+   BlockStorageHostnameResolveNetwork: internal_api
+   ObjectStorageHostnameResolveNetwork: internal_api
+   CephStorageHostnameResolveNetwork: storage

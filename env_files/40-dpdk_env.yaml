@@ -1,0 +1,22 @@
+############################################################################
+#         (C) Copyright 2016 Hewlett-Packard Enterprise Company, L.P.      #
+############################################################################
+
+resource_registry:
+ OS::TripleO::ComputeOvsDpdk::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute-dpdk.yaml
+ OS::TripleO::ComputeOvsDpdk::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+ OS::TripleO::ComputeOvsDpdk::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+ OS::TripleO::ComputeOvsDpdk::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+
+ OS::TripleO::Services::ComputeNeutronOvsDpdkAgent: /home/stack/templates/neutron-ovs-dpdk-agent.yaml
+
+parameter_defaults:
+ NeutronDatapathType: "netdev"
+ NeutronVhostuserSocketDir: "/var/run/openvswitch" 
+ NeutronDpdkCoreList: "'1,21,12,32'"
+ NeutronDpdkMemoryChannels: "4"
+ NeutronDpdkSocketMemory: "2048,2048"
+ NeutronDpdkDriverType: "vfio-pci"
+ NovaReservedHostMemory: "4096"
+ NovaVcpuPinSet: [2-10,13-19,22-30,33-39]
+ HostCpusList: "'0,20,11,31'"

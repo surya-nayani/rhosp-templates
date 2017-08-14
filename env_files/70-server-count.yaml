@@ -1,0 +1,13 @@
+############################################################################
+#         (C) Copyright 2016 Hewlett-Packard Enterprise Company, L.P.      #
+############################################################################
+
+parameter_defaults:
+ OvercloudControlFlavor: control
+ OvercloudComputeFlavor: compute
+ OvercloudComputeOvsDpdkFlavor: computeovsdpdk
+ OvercloudCephStorageFlavor: ceph-storage
+ ControllerCount: 3
+ ComputeCount: 3
+ CephStorageCount: 3
+ ComputeOvsDpdkCount: 1

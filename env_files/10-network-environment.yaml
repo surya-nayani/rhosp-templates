@@ -1,0 +1,29 @@
+############################################################################
+#         (C) Copyright 2016 Hewlett-Packard Enterprise Company, L.P.      #
+############################################################################
+
+parameter_defaults:
+ ComputeKernelArgs: "iommu=pt intel_iommu=on default_hugepagesz=1GB hugepagesz=1G hugepages=200 isolcpus=3-11,13-19,23-31,33-39"
+ overcloud_password: HP1nvent
+ InternalApiNetCidr: 10.207.113.0/24
+ StorageNetCidr: 10.207.115.0/24
+ ExternalNetCidr: 10.207.111.0/24
+ InternalApiAllocationPools: [{'start': '10.207.113.20', 'end': '10.207.113.250'}]
+ StorageAllocationPools: [{'start': '10.207.115.50', 'end': '10.207.115.250'}]
+ ExternalAllocationPools: [{'start': '10.207.111.20', 'end': '10.207.111.50'}]
+ ExternalInterfaceDefaultRoute: 10.207.111.1
+ ControlPlaneDefaultRoute: 10.207.110.1
+ EC2MetadataIp: 10.207.110.2
+ DnsServers: 10.207.110.1
+ InternalApiNetworkVlanID: 113
+ StorageNetworkVlanID: 115
+ ExternalNetworkVlanID: 111
+ NtpServer: 10.207.110.2
+ NeutronNetworkVLANRanges: "datacentre:800:1300"
+ NeutronExternalNetworkBridge: "''"
+ ControlPlaneSubnetCidr: 255.255.255.0
+ TimeZone: America/Chicago
+ PublicVirtualFixedIPs: [{"ip_address": "10.207.111.20"}]
+ NcpSubnetCIdr: 10.207.117.0/24
+ ControlPlaneSubnet_gw: 10.207.110.1
+ HostIsolatedCoreList: "3-11,13-19,23-31,33-39,2,22,12,32"

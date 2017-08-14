@@ -1,0 +1,18 @@
+############################################################################
+#         (C) Copyright 2016 Hewlett-Packard Enterprise Company, L.P.      #
+############################################################################
+# A Heat environment file which can be used to enable a
+# a Cinder HP LeftHand (HP StoreVirtual VSA) backend, configured via puppet
+resource_registry:
+  OS::TripleO::ControllerExtraConfigPre: /usr/share/openstack-tripleo-heat-templates/puppet/extraconfig/pre_deploy/controller/cinder-hpelefthand-iscsi.yaml
+
+parameter_defaults:
+  CinderEnableHPELeftHandISCSIBackend: true
+  CinderHPELeftHandISCSIApiUrl: '{{ item.hplefthandurl}}'
+  CinderHPELeftHandISCSIUserName: "{{ item.hplefthandusername }}"
+  CinderHPELeftHandISCSIPassword: "{{ item.hplefthandpassword }}"
+  CinderHPELeftHandISCSIBackendName: 'tripleo_hpelefthand'
+  CinderHPELeftHandISCSIDriver: 'cinder.volume.drivers.hpe.hpe_lefthand_iscsi.HPELeftHandISCSIDriver'
+  CinderHPELeftHandISCSIChapEnabled: false
+  CinderHPELeftHandClusterName: 'nfvsys_clust_001'
+  CinderHPELeftHandDebug: false
